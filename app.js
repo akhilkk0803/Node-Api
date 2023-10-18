@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 const feedRoutes = require("./router/feed");
 const authRoutes = require("./router/auth");
 const userRoutes = require("./router/user");
-const compression=require('compression')
+const compression = require("compression");
 const fileStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "images");
@@ -47,7 +47,7 @@ app.use((req, res, next) => {
 });
 app.options("*", cors());
 app.use(cors());
-app.use(compression())
+app.use(compression());
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/feed", feedRoutes);
 app.use("/auth", authRoutes);
@@ -63,7 +63,7 @@ mongoose
     `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.bqfcyuw.mongodb.net/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority`
   )
   .then((res) => {
-    const server = app.listen(process.env.PORT || 8080, () => {
+    const server = app.listen(8080, () => {
       console.log("Server is listening at port 8080");
       const io = require("./socketio").init(server);
       io.on("connection", (socket) => {
